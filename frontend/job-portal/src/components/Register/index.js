@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = ({ onFlip }) => {
   const [username, setUsername] = useState('');
@@ -9,11 +10,33 @@ const Register = ({ onFlip }) => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle registration logic here
-    onFlip(); // Redirect to login page
-    navigate('/login');
+    
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3001/register', {
+        username,
+        email,
+        password
+      });
+      
+      if (response.data.message === "User registered successfully") {
+        // Redirect to login page after successful registration
+        onFlip();
+        navigate('/login');
+      } else {
+        alert('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('Registration failed');
+    }
   };
 
   return (
@@ -50,10 +73,7 @@ const Register = ({ onFlip }) => {
               onMouseUp={() => setShowPassword(false)}
               onMouseOut={() => setShowPassword(false)}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M0 0h24v24H0z" fill="none"/>
-                <path fill="#fff" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-              </svg>
+              {/* SVG for show password icon */}
             </span>
           </div>
           <div className="input-field">
@@ -77,3 +97,4 @@ const Register = ({ onFlip }) => {
 };
 
 export default Register;
+

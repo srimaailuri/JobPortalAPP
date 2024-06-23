@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = ({ onFlip }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle login logic here
-    navigate('/home'); // Assuming /home is a protected route
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/login',
+        { email, password },
+        { withCredentials: true } // Send cookies along with the request
+      );
+
+      console.log('Login response:', response.data);
+      navigate('/home'); // Redirect to home page after successful login
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error: show error message or redirect to error page
+    }
   };
 
   return (
@@ -20,9 +33,9 @@ const Login = ({ onFlip }) => {
           <div className="input-field">
             <input
               type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="input-field">
@@ -34,16 +47,27 @@ const Login = ({ onFlip }) => {
             />
           </div>
           <div className="input-field">
-            <button className="btn btn-submit" type="submit">Log in</button>
+            <button className="btn btn-submit" type="submit">
+              Log in
+            </button>
           </div>
         </form>
       </div>
       <div className="footer">
         Don't have an account?
-        <button className="btn btn-rotate" onClick={() => { onFlip(); navigate('/register'); }}>Sign up</button>
+        <button
+          className="btn btn-rotate"
+          onClick={() => {
+            onFlip();
+            navigate('/register');
+          }}
+        >
+          Sign up
+        </button>
       </div>
     </div>
   );
 };
 
 export default Login;
+
