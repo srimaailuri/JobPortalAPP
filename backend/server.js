@@ -5,13 +5,16 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const saltRounds = 10;
 const app = express();
+const JWT_SECRET = "JOB_PORTAL"; 
 
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // Update with your frontend URL
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -42,61 +45,48 @@ const pool = mysql.createPool({
 });
 
 app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, Email, password } = req.body;
 
   try {
     const hash = await bcrypt.hash(password, saltRounds);
-
-    const [rows, fields] = await pool.query(
-      "INSERT INTO user_details (username, email, password) VALUES (?, ?, ?)",
-      [username, email, hash]
-    );
-
-    res.send({ message: "User registered successfully" });
+    await pool.query("INSERT INTO user_details (username, email, password) VALUES (?, ?, ?)", [username, Email, hash]);
+    res.send({ message: "User registered successfully"});
   } catch (error) {
     console.error("Error registering user:", error);
     res.status(500).send({ error: "Registration failed" });
   }
 });
 
-app.get("/login", (req, res) => {
-    if (req.session.user) {
-      res.send({ loggedIn: true, user: req.session.user });
-    } else {
-      res.send({ loggedIn: false });
-    }
-  });
-  
-
 app.post("/login", async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-  
-    try {
-      const [rows, fields] = await pool.query(
-        "SELECT * FROM user_details WHERE email = ?",
-        [email]
-      );
-  
-      if (rows.length > 0) {
-        const match = await bcrypt.compare(password, rows[0].password);
-  
-        if (match) {
-          req.session.user = rows[0];
-          res.send({ loggedIn: true, user: rows[0] });
-        } else {
-          res.status(401).send({ message: "Wrong username/password combination!" });
-        }
+  const { Email, password } = req.body;
+
+  try {
+    const [rows, fields] = await pool.query("SELECT * FROM users.user_details WHERE email = ?", [Email]);
+    console.log("Email:",Email);
+    console.log("fields:",fields);
+
+    if (rows.length > 0) {
+      const match = await bcrypt.compare(password, rows[0].password);
+
+      if (match) {
+        const token = jwt.sign({ id: rows[0].id }, JWT_SECRET, { expiresIn: '1h' });
+        res.send({ jwt_token: token });
       } else {
-        res.status(404).send({ message: "User not found" });
+        res.status(401).send({ error: "Wrong email/password combination!" });
+        return;
       }
-    } catch (error) {
-      console.error("Error logging in:", error);
-      res.status(500).send({ error: "Login failed" });
+    } else {
+      res.status(404).send({ error: "User not found" });
+      return;
     }
-  });
-  
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(500).send({ error: "Login failed" });
+    return;
+  }
+});
 
 app.listen(3001, () => {
   console.log("Server running on port 3001");
 });
+
