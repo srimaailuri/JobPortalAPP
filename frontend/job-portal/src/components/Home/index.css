@@ -1,21 +1,20 @@
-*, *::before, *::after {
-  box-sizing: inherit;
-}
+body {
+  overflow-y:auto;
+  overflow-x: hidden;
+  margin:0;
+  }
 
-.home-container{
+
+.hero-container{
+  background-image: url('https://tse2.mm.bing.net/th?id=OIP.HspBJe4hCSdqxQVAx5ehOQAAAA&pid=Api&P=0&h=180');
+  background-size:cover;
+  overflow-x: hidden;
   min-width: 100vw;
-  min-height: 100vh;
-}
-
-/* Hero Section Styles */
-.hero-section {
+  min-height:60vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: url('https://tse2.mm.bing.net/th?id=OIP.HspBJe4hCSdqxQVAx5ehOQAAAA&pid=Api&P=0&h=180') no-repeat center center/cover;
 }
-
 .hero-content {
   text-align: center;
   color: #fff;
@@ -68,6 +67,13 @@
   font-size: 1rem;
 }
 
+.job-results {
+  margin-top: 20px;
+}
 
-
-https://tse2.mm.bing.net/th?id=OIP.HspBJe4hCSdqxQVAx5ehOQAAAA&pid=Api&P=0&h=180
+.job-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
