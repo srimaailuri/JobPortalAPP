@@ -1,42 +1,40 @@
-.companies-page {
-    min-width: 100vw;
-    min-height: 100vh;
-    padding: 20px;
-  }
 
-  h1{
-    text-align: center;
-  }
-  
-  .search-bar {
-    margin-bottom: 20px;
-  }
-  
-  .search-bar input {
-    padding: 10px;
-    max-width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .company-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .company-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
-    width: 200px;
-    border-radius: 4px;
-  }
-  
-  .company-card img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-  }
-  
+  /* Example CSS for the Navbar and Company Cards */
+
+.navbar {
+  background-color: #333;
+  padding: 1rem;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+.navbar .navbar-links a:hover {
+  text-decoration: underline;
+}
+
+.companies-page {
+  padding: 2rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.company-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+

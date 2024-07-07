@@ -44,6 +44,8 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
+// API register
+
 app.post("/register", async (req, res) => {
   const { username, Email, password } = req.body;
 
@@ -56,6 +58,8 @@ app.post("/register", async (req, res) => {
     res.status(500).send({ error: "Registration failed" });
   }
 });
+
+// API login
 
 app.post("/login", async (req, res) => {
   const { Email, password } = req.body;
@@ -85,6 +89,61 @@ app.post("/login", async (req, res) => {
     return;
   }
 });
+
+// API all jobs
+
+app.get("/jobs", async (request, response) => {
+  const { JobTitle, Location } = request.body;
+  try{
+    const query_result=await pool.query("Select * from users.jobs");
+    response.send({query_result});
+  }
+  catch(error){
+    console.log("Error logging in :",error);
+    response.status(500).send({error: "server issue"});
+  }
+});
+
+// API for Companies input search
+app.get('/companies', async (req, res) => {
+  const query = 'SELECT Company, ANY_VALUE(Location) AS location, ANY_VALUE(id) AS id,job_count FROM (SELECT Company, ANY_VALUE(id) AS id,COUNT(JobTitle) AS job_count,ANY_VALUE(Location) AS location FROM jobs GROUP BY Company) AS job_counts';
+  try {
+    const results = await pool.query(query);
+    res.json({results});
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    res.status(500).send({ error: "Server issue" });
+  }
+});
+
+//API for Companies:name 
+app.get('/company/:name', async (req, res) => {
+  const companyName = req.params.name;
+
+  try {
+    // Example: Query database to fetch job posts for the company
+    const response = await pool.query('SELECT * FROM jobs WHERE Company = ?', [companyName]);
+    res.json(response[0]); // Sending fetched data as JSON response
+  } catch (error) {
+    console.error("Error fetching job posts:", error);
+    res.status(500).send({ error: "Server issue" });
+  }
+});
+
+//API for JobDetails:id 
+app.get('/jobDetails/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    // Example: Query database to fetch job posts for the company
+    const response = await pool.query('SELECT * FROM jobs WHERE id = ?', [id]);
+    res.json(response[0]); // Sending fetched data as JSON response
+  } catch (error) {
+    console.error("Error fetching job posts:", error);
+    res.status(500).send({ error: "Server issue" });
+  }
+});
+
 
 app.listen(3001, () => {
   console.log("Server running on port 3001");

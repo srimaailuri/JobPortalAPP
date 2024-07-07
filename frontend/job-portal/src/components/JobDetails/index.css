@@ -1,0 +1,93 @@
+/* JobDetail.css */
+.job-detail-container {
+    min-width:100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .another-container {
+    width:80%;
+  }
+
+  @media screen and (max-width:600px){
+    .another-container{
+        width: 100%;
+    }
+    .job-header{
+        justify-content: flex-start;
+    }
+  }
+  .job-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .company-logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .job-title {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .job-title h1 {
+    margin: 0;
+  }
+  
+  .job-title p {
+    margin: 5px 0;
+  }
+  
+  .salary {
+    text-align: right;
+    font-weight: 600;
+  }
+  
+  .job-type {
+    display: block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .job-description, .responsibilities {
+    margin-bottom: 20px;
+  }
+  
+  .job-description h2, .responsibilities h2{
+    margin-bottom: 10px;
+  }
+  
+  .responsibilities ul, .job-overview ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .responsibilities ul li, .job-overview ul li {
+    margin-bottom: 10px;
+  }
+
+  .job-overview{
+    border-radius: 5px;
+    background-color: #FAF9F6;
+    border-color: black;
+    border-width:2px;
+    border-style:solid;
+    padding:20px;
+
+  }
+  
+  .job-url {
+    word-break: break-all;
+  }
