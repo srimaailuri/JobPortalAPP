@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import JobDescription from '../JobDescription';
+import { AppContext } from '../AppContext';
 import './index.css'; 
 
 const JobDetail = () => {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [error, setError] = useState('');
+
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -24,6 +26,13 @@ const JobDetail = () => {
 
     fetchJob();
   }, [id]);
+
+  const { addAppliedJobId } = React.useContext(AppContext);
+
+  const handleApply = () => {
+    addAppliedJobId(id);
+    alert("added Successfully");
+  };
 
   if (error) {
     return <div>{error}</div>;
@@ -71,7 +80,7 @@ const JobDetail = () => {
                         <li className="job-url">Company url: {job.JobUrl}</li>
                         <li>Summary:{job.Summary}</li>
                     </ul>
-                    <button>Apply</button>
+                    <button onClick={handleApply} className='apply-button'>Apply</button>
                 </div>
                 </div>
             </div>

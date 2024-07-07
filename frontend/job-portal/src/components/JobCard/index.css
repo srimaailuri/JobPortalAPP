@@ -9,6 +9,8 @@
     justify-content:  space-between;
     align-items: flex-start;
     flex-wrap:wrap;
+    text-decoration: none;
+    color:#000;
 }
 
 .job-card-left{
@@ -16,6 +18,10 @@
   flex-direction: column;
   align-items: flex-start;
   min-width:80%;
+}
+
+.job-card-left h3{
+  word-break: break-all;
 }
 
 

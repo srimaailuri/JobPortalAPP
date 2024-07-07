@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import './index.css';
 import JobCard from '../JobCard';
@@ -9,6 +11,7 @@ const Home = () => {
   const [location, setLocation] = useState('');
   const [jobs, setJobs] = useState([]);
   const [filteredjobs,setFilteredJobs]=useState([]);
+  const jwtToken = Cookies.get('jwt_token');
 
   const fetchJobs = async (jobTitle = '', location = '') => {
     try {
@@ -36,6 +39,10 @@ const Home = () => {
     );
     setFilteredJobs(filteredJobs);
   };
+
+  if (!jwtToken) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div>
@@ -66,7 +73,7 @@ const Home = () => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                 />
-                <button className="btn find-jobs" onClick={handleSearch}>Find Jobs</button>
+                <button type='button' className="find-jobs" onClick={handleSearch}>Find Jobs</button>
               </div>
               <div className="job-categories">
                 <a href="#designer" className="category-link">Designer</a>

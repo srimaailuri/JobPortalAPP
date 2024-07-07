@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // If using axios
 import { useParams } from 'react-router-dom';
 import JobCard from '../JobCard'
-import './index.css'; 
+import './index.css'
 
 const CompanyDetail = () => {
   const { name } = useParams();
@@ -24,7 +24,7 @@ const CompanyDetail = () => {
   }, [name]);
 
   return (
-    <div>
+    <div className='companyDetail'>
       <h1>Job Posts at {name}</h1>
       {error && <p>{error}</p>}
       {CompanyDetailjobPosts.length > 0 ? (

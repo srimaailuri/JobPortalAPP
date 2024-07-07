@@ -14,7 +14,7 @@ const JobCard = ({ eachJob }) => {
       </div>
       <div className="job-card-right">
         <p>{eachJob.PostDate}</p>
-        <button className="apply-button">Apply</button>
+        <button type="button" className="apply-button">Apply</button>
       </div>
   </Link>
   );

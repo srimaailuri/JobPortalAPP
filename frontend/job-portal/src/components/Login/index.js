@@ -52,7 +52,7 @@ class LoginForm extends Component {
 
     submitForm = async event => {
       event.preventDefault();
-      console.log("clicked");
+      
       const { Email, password } = this.state;
   
       if (!this.validateForm()) {

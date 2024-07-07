@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import LoginForm from './components/Login';
 import RegisterForm from './components/Register';
 import Home from './components/Home';
@@ -10,7 +10,6 @@ import MyApplication from './components/MyApplication';
 import Blogs from './components/Blogs';
 import { AppProvider } from './components/AppContext';
 
-import './App.css';
 
 function App() {
   return (

@@ -91,3 +91,12 @@
   .job-url {
     word-break: break-all;
   }
+
+  .apply-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }

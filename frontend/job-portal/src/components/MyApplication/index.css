@@ -1,0 +1,61 @@
+/* ApplicationsPage.css */
+
+.applications-page {
+    padding: 20px;
+  }
+  
+  .applications-page h1{
+    text-align: center;
+  }
+
+  .no-app-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .no-app-img{
+    max-width: 500px;
+    max-height:500px;
+  }
+
+
+  .myapp-job-cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .my-app-job-card {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .my-app-job-card h3 {
+    margin-top: 0;
+  }
+  
+  .my-app-job-card p {
+    margin: 5px 0;
+  }
+  
+  .my-app-job-card button {
+    margin-top: 10px;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #cf2512;
+  }
+  
+  .my-app-job-card button:hover {
+    background-color: #e74c3c;
+  }
+  
+  .job_url{
+    word-break: break-all;
+  }

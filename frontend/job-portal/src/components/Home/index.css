@@ -4,6 +4,9 @@ body {
   margin:0;
   }
 
+  .container {
+    padding-top: 50px; 
+  }
 
 .hero-container{
   background-image: url('https://tse2.mm.bing.net/th?id=OIP.HspBJe4hCSdqxQVAx5ehOQAAAA&pid=Api&P=0&h=180');
@@ -18,7 +21,13 @@ body {
 .hero-content {
   text-align: center;
   color: #fff;
-  max-width: 800px;
+}
+
+@media screen and (min-width:600px) {
+  .hero-content{
+    max-width: 800px;
+  }
+  
 }
 
 .hero-content h1 {
@@ -43,7 +52,16 @@ body {
   font-size: 1rem;
   border: none;
   border-radius: 5px;
-  width: 200px;
+}
+
+@media screen and (max-width:600px){
+  .search-bar{
+    flex-direction: column;
+    align-items: center;
+  }
+  .search-input{
+    width:150px;
+  }
 }
 
 .find-jobs {
